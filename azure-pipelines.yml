@@ -10,11 +10,58 @@ pool:
   vmImage: ubuntu-latest
 
 stages:
-- stage: A
-  displayName: 'Stage A'
-  jobs:
-    - job: A1
-      displayName: 'Job A1'
-      steps:
-        - script: 
-        - bash: echo 'Hellow world'
+  - stage: BuildApp
+    displayName: Buils Apps
+    jobs:
+      - job: BuilFrontendApp
+        displayName: Build Fontend App
+        steps:
+          - script: echo building fontend app
+            displayName: build frontend app
+          - script: echo running unit tests for frintend app
+            displayName: unit tests frontend
+      - job: BuildBackendApp
+        displayName: Buils Backend App
+        steps:
+          - script: echo building backend app
+            displayName: build backend app
+          - script: echo running unit tests for backend app
+            displayName: unit tests backend
+
+  - stage: DeployDev
+    displayName: Deploy to Dev environment
+    jobs:
+      - job: DeployFrontendDev
+        displayName: Deploy frontend to DEV
+        steps:
+          - script: echo deploying frontend app to DEV
+            displayName: deploy forntend app to DEV
+
+      - job: DeployBackendDev
+        displayName: Deploy backend to DEV
+        steps:
+          - script: echo deploying backend app to DEV
+            displayName: deploy backend app to DEV
+          
+  - stage: DeployProd
+    displayName: Deploy to PROD enviroment
+    pool:
+      vmImage: 'macOS-10.14'
+      jobs:
+        - job: DeployFrontendProd
+          displayName: Deploy frontend to PROD
+          steps:
+            - script: echo deploying frontend app to PROD
+              dipsplayName: deploy frontend app to PROD
+
+        - job: DeployBackendProd
+          displayName: Deploy backend app to PROD
+          pool:
+            vmImage: 'vs2017-win2016'
+          steps:
+            - script: echo deploying backend app to PROD
+              displayName: deploy backend app to PROD
+
+    
+
+
