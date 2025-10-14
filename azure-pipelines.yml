@@ -31,6 +31,7 @@ stages:
 
   - stage: DeployDev
     displayName: Deploy to Dev environment
+    dependsOn: []
     jobs:
       - job: DeployFrontendDev
         displayName: Deploy frontend to DEV
@@ -46,8 +47,9 @@ stages:
 
   - stage: DeployProd
     displayName: Deploy to PROD enviroment
+    dependsOn: []
     pool:
-      vmImage: 'macOS-10.14'
+      vmImage: 'macOS-latest'
     jobs:
       - job: DeployFrontendProd
         displayName: Deploy frontend to PROD
